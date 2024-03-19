@@ -1,0 +1,73 @@
+/* Header.css */
+.header {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #000000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.burger-menu-element {
+    margin-top: 15px;
+    font-size: 19px;
+    text-align: left;
+}
+.header-element{
+    margin-right: 25px;
+    font-size: 16px;
+}
+
+.burger-menu {
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
+}
+
+.burger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.overlay {
+    padding-left: 4%;
+    position: fixed; /* Додайте цей рядок */
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    transition: width 0.3s;
+}
+
+.overlay.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 10%;
+}
+
+.burger-menu.open .bar1 {
+    transform: translateY(6px) rotate(-45deg);
+}
+
+.burger-menu.open .bar2 {
+    opacity: 0;
+}
+
+.burger-menu.open .bar3 {
+    transform: translateY(-9px) rotate(45deg);
+}
+.menu-link {
+    color: white;
+    text-underline: white;
+    text-decoration: none;
+}
+

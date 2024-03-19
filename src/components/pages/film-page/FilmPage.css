@@ -1,0 +1,98 @@
+.film-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movie-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.movie-image {
+    width: fit-content;
+    height: 250px;
+}
+
+.movie-image img {
+    width: 100%;
+    height: 250px;
+}
+
+.movie-header {
+    box-sizing: border-box;
+    padding: 10px 30px;
+    width: 20%;
+
+}
+
+.movie-header button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #282727;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.additional-movie-info {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 38.54px;
+}
+
+.additional-movie-info button {
+    height: fit-content;
+    padding: 17px 25px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #782624;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.main-roles-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.actor-image-container {
+    width: fit-content;
+    height: 100px;
+}
+
+.actor-image-container img{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+.actor-container {
+    width: 20%;
+}
+
+.movie-comments-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.comment-item {
+    margin: 7px 0px;
+    display: flex;
+    padding: 25px 15px;
+    flex-direction: column;
+    background-color: #282727;
+    border-radius: 10px;
+    color: white;
+}

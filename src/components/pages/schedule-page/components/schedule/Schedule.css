@@ -1,0 +1,9 @@
+.schedule-timetable{
+    display: flex;
+    flex-direction: column;
+    background-color: #282727;
+    padding: 50px 20px;
+}
+.hall-row {
+    display: flex;
+}

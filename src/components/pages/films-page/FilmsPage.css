@@ -1,0 +1,32 @@
+.films-page-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+}
+
+.films-button, .films-button-selected {
+    margin-right: 30px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.films-button {
+    color: #FFFFFF85;
+}
+
+.films-button-selected {
+    color: white;
+}
+
+.film-container {
+    box-sizing: border-box;
+    width: 20%;
+    padding: 30px 50px;
+}
+.film-image {
+    width: 100%;
+    height: 250px;
+}
+.film-title {
+    font-size: 18px;
+}

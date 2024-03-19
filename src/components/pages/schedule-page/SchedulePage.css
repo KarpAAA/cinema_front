@@ -1,0 +1,36 @@
+.schedule-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filters-container {
+    display: flex;
+    flex-direction: column;
+}
+.filters-container label{
+    margin-left: 10px;
+}
+.dayRadios div{
+    margin-top: 10px;
+}
+.technologyOptions div{
+    margin-top: 10px;
+}
+input[type="radio"] {
+    accent-color: #782624;
+    width: 15px;
+    height: 15px;
+}
+
+input[type="checkbox"] {
+    accent-color: #782624;
+    width: 15px;
+    height: 15px;
+}
+
+h2 {
+    margin-top: 30px;
+}

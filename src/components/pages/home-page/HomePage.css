@@ -1,0 +1,88 @@
+.content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+}
+
+.blocks-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 50px;
+}
+
+.block-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.block {
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+
+.filter-option {
+    margin-top: 15px;
+    width: fit-content;
+    padding: 7px 19px;
+    font-size: 16px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 30px;
+}
+
+.films-block {
+    font-weight: lighter;
+    padding: 4% 10%;
+    background-color: #782624;
+}
+
+.schedule-block {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 4%;
+    background-image: url("../../../../public/films.png");
+    background-size: cover;
+    height: 260px;
+}
+
+
+.premiere-block {
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: url("../../../../public/premier.png");
+    height: 420px;
+    background-size: cover;
+}
+
+.round-button {
+    border: none;
+    padding-left: 8px;
+    padding-top: 3px;
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Заокруглені кути для круглої форми */
+    background-color: white;
+}
+
+.rounded {
+    border: 1px solid white;
+    padding: 8px 10px;
+    font-size: 17px;
+    width: 100px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}

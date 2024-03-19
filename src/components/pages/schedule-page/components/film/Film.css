@@ -1,0 +1,48 @@
+.movie {
+    padding: 20px;
+    display: flex;
+    align-items: start;
+}
+
+.movie img {
+    width: 196px;
+    height: 243px;
+}
+
+.movieInfo {
+    padding-left: 20px;
+    width: 300px;
+
+}
+
+.movieDate {
+    color: grey;
+    font-size: 15px;
+}
+
+.filmTitle {
+    font-size: 25px;
+}
+
+.item {
+    width: calc(25% - 10px);
+    padding: 7px 0px;
+    font-size: 15px;
+    margin: 10px 10px 0px 0;
+    box-sizing: border-box;
+    background-color: #782624;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.item.first-item {
+    background-color: #222323;
+}
+
+.sessionsContainer {
+    padding: 10px 0;
+}
+
+.technologiesContainer {
+    margin-top: 50px;
+}
