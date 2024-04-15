@@ -37,7 +37,7 @@ export const Operations = ({operations, title}) => {
             <div>
                 {operations.map((operation, index) => (
 
-                    <div className={'operation'}>
+                    <div className={'operation'} key={operation.id}>
 
                         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                             <div className={'profile-board-title-container'} style={{width: '25%'}}>
@@ -49,7 +49,7 @@ export const Operations = ({operations, title}) => {
                                  style={{width: '45%', justifyContent: 'space-between'}}>
                                 <div>{operation.sessionDate}</div>
                                 <div>{operation.tickets.length}</div>
-                                <div>{operation.bar.length}</div>
+                                <div>{operation.goods.length}</div>
                                 <div>{operation.price}</div>
                                 <div>
                                     <button

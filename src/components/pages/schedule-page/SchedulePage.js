@@ -1,68 +1,68 @@
-import styles from './SchedulePage.css';
-import {useState} from "react";
+import './SchedulePage.css';
 import {FilmsFilter} from "./components/filmsFilter/FilmsFilter";
 import {Film} from "./components/film/Film";
 import {Schedule} from "./components/schedule/Schedule";
-import {sessionTest} from "./sessionTest";
+import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {useGetSessionsQuery} from "../../../store/api";
+import {scheduledSessionsDecorator} from "../../../store/slices/session-slice";
 
 const SchedulePage = () => {
+    const filterOptions = useSelector(state => state.moviesFilter);
+    const [sessions, setSessions] = useState([]);
+    const {data: sessionsData} = useGetSessionsQuery();
+    const [selectedSession, setSelectedSession] = useState();
 
-    const films = [
-        {
-            title: "Barbie",
-            dateTime: "27 may, Saturday",
-            sessions: {
-                "2D": [sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest]
-            }
-        },
-        {
-            title: "Barbie",
-            dateTime: "27 may, Saturday",
-            sessions: {
-                "2D": [sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest]
-            }
-        },
-        {
-            title: "Barbie",
-            dateTime: "27 may, Saturday",
-            sessions: {
-                "2D": [sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest,sessionTest]
-            }
+    useEffect(() => {
+        if(sessionsData){
+            setSessions(scheduledSessionsDecorator(sessionsData, filterOptions));
         }
-    ];
-    const [selectedOption, setSelectedOption] = useState("today");
-    const [technologyOptions, setTechnologyOptions] = useState({
-        "2D": false,
-        "3D": false,
-    });
+    }, [sessionsData,filterOptions]);
 
-    const [ageOptions, setAgeOptions] = useState({
-        "0+": false,
-        "18+": false,
-    });
+    const handleSelectedSession = (id) => {
+        if (!id) setSelectedSession(null);
+        if(sessionsData){
+            const session = sessionsData.find(s => s.id === id);
+            setSelectedSession(session);
+        }
 
+    }
     return (
         <div className={'schedule-content'}>
             <div className={'filters-container'}>
-                <FilmsFilter
-                    ageOptions={ageOptions}
-                    setAgeOptions={setAgeOptions}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
-                    setTechnologyOptions={setTechnologyOptions}
-                    technologyOptions={technologyOptions}
-                ></FilmsFilter>
+                <FilmsFilter></FilmsFilter>
             </div>
 
-            <div className={'films-container'}>
-                {films.map((film, index) => (
-                    <Film film={film}></Film>
+            <div style={{display: "flex", flexDirection: 'column'}}>
+                {Object.keys(sessions).map((date, index) => (
+                    <div key={index}>
+                        {date}
+                        <div className={'films-container'}>
+                            {Object.keys(sessions[date]).map((filmId, index) => (
+                                <Film
+                                    key={filmId}
+                                    filmId={filmId}
+                                    sessions={sessions[date][filmId]}
+                                    setSelectedSession={handleSelectedSession}
+                                ></Film>
+                            ))}
+                        </div>
+                    </div>
                 ))}
-
             </div>
+
             <div className={'schedule-container'}
-                 style={{width: '300px'}}>
-                <Schedule session={films[0].sessions["2D"][0]}></Schedule>
+                 style={{width: '200px'}}>
+                {selectedSession &&
+                    <div style={{position: 'fixed'}}>
+                        <Schedule
+                            hall={selectedSession.hall}
+                            ticketTypes={selectedSession.ticketTypes}
+                        >
+                        </Schedule>
+                    </div>
+                }
+
             </div>
 
         </div>
