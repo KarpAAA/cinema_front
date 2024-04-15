@@ -1,0 +1,64 @@
+.stats-page-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+}
+.my-chart {
+    background-color: white;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Розміщуємо елементи у дві колонки з однаковою шириною */
+}
+
+.block1 {
+    grid-column: 1 / 2;
+}
+
+.block2 {
+    grid-column: 2 / 3;
+}
+/* Стилізований селект */
+.select-container {
+    position: relative;
+    display: inline-block;
+}
+
+.select-container select {
+    appearance: none; /* Сховати оригінальний вигляд селекта */
+    padding: 10px 20px; /* Розмір відступів у селекта */
+    font-size: 16px; /* Розмір шрифту */
+    border: 2px solid #ccc; /* Колір рамки */
+    border-radius: 5px; /* Радіус закруглення кутиків */
+    background-color: #f9f9f9; /* Колір фону */
+    cursor: pointer; /* Зміна курсора при наведенні */
+}
+
+/* Стилізована кнопка */
+.button {
+    padding: 10px 20px; /* Розмір відступів у кнопки */
+    font-size: 16px; /* Розмір шрифту */
+    border: none; /* Видалення рамки */
+    border-radius: 5px; /* Радіус закруглення кутиків */
+    background-color: #007bff; /* Колір фону */
+    color: #fff; /* Колір тексту */
+    cursor: pointer; /* Зміна курсора при наведенні */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Колір фону при наведенні */
+}
+.number-input {
+    padding: 10px 20px; /* Розмір відступів */
+    font-size: 16px; /* Розмір шрифту */
+    border: 2px solid #ccc; /* Колір рамки */
+    border-radius: 5px; /* Радіус закруглення кутиків */
+}
+
+.number-input:focus {
+    outline: none; /* Видалення фокусу при виборі */
+    border-color: #007bff; /* Колір рамки при фокусі */
+}
+.grid-container div {
+    margin-right: 20px;;
+}

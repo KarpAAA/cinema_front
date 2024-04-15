@@ -1,0 +1,88 @@
+.purchase-ticket-page-content {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-ticket-column1 {
+    width: 50%;
+}
+
+.purchase-ticket-column2{
+    width: 40%;
+}
+.hall-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 5%;
+
+}
+.purchase-bar-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.purchase-bar-item {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 5px 8px;
+    padding: 50px 15px;
+    width: calc(33% - 16px);
+    background-color: #282727;
+    font-size: 18px;
+    min-height: 150px;
+}
+
+
+.number-input button {
+    margin: 0 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color:black;
+    font-size: 20px;
+    border:none;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.number-input {
+   max-width: 100px;
+   margin-top: 10px;
+}
+
+.purchase-film-info {
+    width: 50px;
+    text-align: center;
+    background-color: #282727;
+    color: white;
+    font-size: 18px;
+    padding: 7px 25px;
+    border-radius: 10px
+}
+
+.cart-item{
+    width: 80%;
+    text-align: center;
+    background-color: #282727;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+
