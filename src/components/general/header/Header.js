@@ -1,10 +1,25 @@
 import React from 'react';
 import './Header.css';
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {userActions} from "../../../store/slices/user-slice";
+import {uiActions} from "../../../store/slices/ui-slice";
 
 const Header = ({isMenuOpen, toggleMenu}) => {
+    const dispatch = useDispatch();
+    const {isLoggedIn} = useSelector(state => state.user);
+    const handleLogOut = () => {
+        dispatch(userActions.userLogOut());
+    }
 
-
+    const handleLogIn = () => {
+        dispatch(uiActions.changeModalWindowState(true));
+        dispatch(uiActions.changeModalContent(true));
+    }
+    const handleSignUp = () => {
+        dispatch(uiActions.changeModalWindowState(true));
+        dispatch(uiActions.changeModalContent(false));
+    }
     return (
         <div className="header">
             <div className={`burger-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
@@ -13,9 +28,15 @@ const Header = ({isMenuOpen, toggleMenu}) => {
                 <div className="bar3"></div>
             </div>
             <div style={{display: 'flex'}}>
-                <div className={'header-element'}>Location</div>
-                <div className={'header-element'}>Log in</div>
-                <div className={'header-element'}>Sign up</div>
+                {/*<div className={'header-element'}>Location</div>*/}
+
+                {isLoggedIn ?
+                    <div className={'header-element'} onClick={handleLogOut}>Log out</div>
+                    :
+                    <div className={'header-element'} onClick={handleLogIn}>Log in</div>
+                }
+
+                {!isLoggedIn && <div className={'header-element'} onClick={handleSignUp}>Sign up</div>}
             </div>
 
             {isMenuOpen && (
@@ -36,12 +57,18 @@ const Header = ({isMenuOpen, toggleMenu}) => {
                                 Films
                             </Link>
                         </div>
-                        <div className="burger-menu-element">Help</div>
-                        <div className="burger-menu-element">About us</div>
+                        {/*<div className="burger-menu-element">Help</div>*/}
+                        {/*<div className="burger-menu-element">About us</div>*/}
                     </div>
-                    <div>
-                        Log in
-                    </div>
+                    {isLoggedIn ?
+                        <div className={'header-element'}>
+                            <Link to={'/profile'} className={'menu-link'}>
+                                Profile
+                            </Link>
+                        </div>
+                        :
+                        <div className={'header-element'} onClick={handleLogIn}>Log in</div>
+                    }
                 </div>
             )}
         </div>

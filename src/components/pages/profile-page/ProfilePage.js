@@ -1,127 +1,39 @@
 import './ProfilePage.css'
-import {Operations} from "./Operations";
-import {ProfileInput} from "./ProfileInput";
-import {useState} from "react";
+import {Operations} from "./components/Operations";
+import {ProfileInput} from "./components/ProfileInput";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {useDispatch, useSelector} from "react-redux";
+import {saveUserData, userActions} from "../../../store/slices/user-slice";
+import dateHelpers from "../../../utlis/dateHelpers";
+import stringHelpers from "../../../utlis/stringHelpers";
+import {useGetUserOperationsQuery} from "../../../store/api";
+
 
 export const ProfilePage = () => {
-    const [user, setUserState] = useState(
-        {
-            city: 'Lviv',
-            email: "user@example.com",
-            phone: '0961236578',
-            name: "User Surname",
-            birthdate: "11.05.2004"
-        }
-    );
+    const skipProfileKeys = ['id', 'email', 'role', 'birthdate'];
 
-    const operations = [
-        {
-            id: 20013,
-            date: "19.03.2024 19:40",
-            movie: "Thor",
-            sessionDate: '21.03.2024',
-            tickets: [
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                },
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                }
-            ],
-            bar: [],
-            price: 200,
+    const dispatch = useDispatch();
+    const {user} = useSelector(state => state.user);
+    const {data: operations} = useGetUserOperationsQuery(user.id);
 
-        },
-        {
-            id: 20014,
-            date: "19.03.2024 19:40",
-            movie: "Thor",
-            sessionDate: '21.03.2024',
-            tickets: [
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                },
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                }
-            ],
-            bar: [],
-            price: 200,
-
-        },
-        {
-            id: 20015,
-            date: "19.03.2024 19:40",
-            movie: "Thor",
-            sessionDate: '21.03.2024',
-            tickets: [
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                },
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                }
-            ],
-            bar: [],
-            price: 200,
-
-        },
-        {
-            id: 20016,
-            date: "19.03.2024 19:40",
-            movie: "Thor",
-            sessionDate: '18.03.2024',
-            tickets: [
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                },
-                {
-                    row: 2,
-                    seat: 2,
-                    price: 100
-                }
-            ],
-            bar: [],
-            price: 200,
-
-        }
-
-    ]
-
-    const isPastDate = (sessionDate) => {
-        const currentDate = new Date();
-        const parts = sessionDate.split('.');
-        const targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-
-        return currentDate > targetDate;
-    }
-    const capitalizeFirstLetter = (word) => {
-        return word.charAt(0).toUpperCase() + word.slice(1);
+    console.log(operations);
+    const handleProfileInputsChange = (field) => (event) => {
+        dispatch(userActions.changeUserState({field, value: event.target.value}));
     }
 
+    const handleProfileBirthdateChange = (date) => {
+        dispatch(userActions.changeUserState({field: 'birthdate', value: dateHelpers.dateToISOFormat(date)}));
+    }
 
     return (
 
         <div className={'profile-page-content'}>
 
             <Operations
-                operations={operations.filter(operation => !isPastDate(operation.sessionDate))}
+                operations={
+                    operations ? operations.filter(operation => !dateHelpers.isPastDate(operation.sessionDate)) : []
+                }
                 title={'Tickets and bar'}>
             </Operations>
 
@@ -137,47 +49,51 @@ export const ProfilePage = () => {
 
                 <div style={{display: 'flex', width: '40%', flexWrap: 'wrap'}}>
 
-                    {Object.keys(user).filter(key => key !== 'birthdate').map((key, index) => (
-                        <div style={{width: '50%', boxSizing: 'border-box'}}>
+                    {Object.keys(user).filter(key => !skipProfileKeys.includes(key)).map((key, index) => (
+                        <div style={{width: '50%', boxSizing: 'border-box'}} key={index}>
                             <ProfileInput
-                                value={user[key]}
-                                labelText={capitalizeFirstLetter(key)}
-                                inputChangeEvent={(e) => {
-                                    setUserState(prevState => {
-                                        const newState = {...prevState};
-                                        newState[key] = e.target.value;
-                                        return newState;
-                                    })
-                                    console.log(user);
-                                }}>
+                                value={user[key] ? user[key] : ''}
+                                labelText={stringHelpers.capitalizeFirstLetter(key)}
+                                inputChangeEvent={handleProfileInputsChange(key)}>
                             </ProfileInput>
                         </div>
 
                     ))}
 
-
                     <div className="input-wrapper" style={{width: '50%', boxSizing: 'border-box'}}>
                         <label htmlFor="city">Birthdate<span style={{color: 'red'}}> *</span></label>
                         <DatePicker
                             className={'profile-input'}
-                            selected={user.birthdate} onChange={date => {
-                            setUserState(prevState => {
-                                const newState = {...prevState};
-                                newState.birthdate = date;
-                                return newState;
-                            })
-                        }} />
+                            selected={user.birthdate}
+                            onChange={handleProfileBirthdateChange}/>
                     </div>
 
 
+
                 </div>
-
-
+                <div className="input-wrapper" style={{width: '40%', boxSizing: 'border-box'}}>
+                    <button
+                        onClick={() => {
+                            dispatch(saveUserData(user));
+                        }}
+                        style={{
+                            width: "20%",
+                            backgroundColor: "#282727",
+                            padding: '10px 20px',
+                            fontSize: '15px',
+                            border: 'none',
+                            borderRadius: '10px',
+                            color: 'white',
+                            pointer: 'click'
+                        }}>Save</button>
+                </div>
 
             </div>
 
             <Operations
-                operations={operations.filter(operation => isPastDate(operation.sessionDate))}
+                operations={
+                    operations ? operations.filter(operation => dateHelpers.isPastDate(operation.sessionDate)) : []
+                }
                 title={'Operations history'}>
             </Operations>
         </div>

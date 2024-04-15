@@ -1,3 +1,7 @@
 .blurred {
     filter: blur(8px); /* Застосування розмиття до контенту */
 }
+.link{
+    color: white;
+    text-decoration: none;
+}

@@ -1,66 +1,18 @@
 import './FilmsPage.css'
+import {useSelector} from "react-redux";
+import {selectMovies, selectNowMovies, selectSoonMovies} from "../../../store/slices/movie-slice";
+import {Link} from "react-router-dom";
 import {useState} from "react";
 
 export const FilmsPage = () => {
-    const [nowInCinemaChosen, setNowInCinemaChosen] = useState(true);
-    const films = [
-        {
-            image: 'barbie.png',
-            title: 'Barbie'
-        },
-        {
-            image: 'tor.png',
-            title: 'Thor'
-        },
-        {
-            image: 'flesh.png',
-            title: 'Flesh'
-        },
-    ];
 
-    const filmsNow = {
-        "19 March": [
-            {
-                image: 'barbie.png',
-                title: 'Barbie'
-            },{
-                image: 'barbie.png',
-                title: 'Barbie'
-            },{
-                image: 'barbie.png',
-                title: 'Barbie'
-            }
-        ],
-        "20 March": [
-            {
-                image: 'tor.png',
-                title: 'Thor'
-            },
-            {
-                image: 'barbie.png',
-                title: 'Barbie'
-            },
-            {
-                image: 'flesh.png',
-                title: 'Flesh'
-            },
-        ],
-        "21 March": [
-            {
-                image: 'flesh.png',
-                title: 'Flesh'
-            },
-        ],
-        "22 March": [
-            {
-                image: 'tor.png',
-                title: 'Thor'
-            },
-        ]
-    };
+    const [nowInCinemaChosen, setNowInCinemaChoosen] = useState(true);
+    const nowMovies = useSelector(selectNowMovies);
+    const soonMovies = useSelector(selectSoonMovies);
+
 
     const handleChange = (value) => () => {
-        setNowInCinemaChosen(value);
+        setNowInCinemaChoosen(value);
     }
 
     return (
@@ -76,33 +28,45 @@ export const FilmsPage = () => {
 
             {
                 nowInCinemaChosen ?
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                        {Object.keys(filmsNow).map((key, index) => (
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <h2>{key}</h2>
-                            <div style={{display: "flex", flexWrap: "wrap"}}>
-                                {filmsNow[key].map((film, index) => (
-                                    <div className={'film-container'}>
-                                        <img className={'film-image'} src={film.image} alt={"Empty"}/>
-                                        <div className={'film-title'}>{film.title}</div>
-                                    </div>
-                                ))}
-
-                            </div>
-                        </div>
-                    ))}
-                    </div>
-
-                    :
                     <div style={{display: "flex", flexWrap: "wrap", marginTop: '50px'}}>
+                        {
+                            nowMovies.length === 0 &&
+                            <div style={{height: "400px", width: '100%', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                <div style={{fontSize: '40px'}}>
+                                    Empty...
+                                </div>
+                            </div>
+                        }
+                        {nowMovies.map((film, index) => (
+                            <div key={film.id} className={'film-container'}>
+                                <Link to={`/film/${film.id}`} className={'link'}>
+                                    <img className={'film-image'} src={film.image} alt={"Empty"}/>
+                                    <div className={'film-title'}>{film.title}</div>
+                                </Link>
 
-                        {films.map((film, index) => (
-                            <div className={'film-container'}>
-                                <img className={'film-image'} src={film.image} alt={"Empty"}/>
-                                <div className={'film-title'}>{film.title}</div>
                             </div>
                         ))}
 
+                    </div>
+
+                    :
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                        {Object.keys(soonMovies).map((key, index) => (
+                            <div key={index} style={{display: 'flex', flexDirection: 'column'}}>
+                                <h2>{key}</h2>
+                                <div style={{display: "flex", flexWrap: "wrap"}}>
+                                    {soonMovies[key].map((film, index) => (
+                                        <div key={film.id} className={'film-container'}>
+                                            <Link to={`/film/${film.id}`} className={'link'}>
+                                                <img className={'film-image'} src={film.image} alt={"Empty"}/>
+                                                <div className={'film-title'}>{film.title}</div>
+                                            </Link>
+                                        </div>
+                                    ))}
+
+                                </div>
+                            </div>
+                        ))}
                     </div>
             }
 
